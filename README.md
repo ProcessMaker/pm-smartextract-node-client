@@ -1,48 +1,41 @@
-# Sypht Nodejs Client
-This repository is a Nodejs reference client implementation for working with the Sypht API at https://api.sypht.com.
+# ProcessMaker SmartExtract Nodejs Client
+This repository is a Nodejs client library for the ProcessMaker SmartExtract API.
 
-## About Sypht
-[Sypht](https://sypht.com) is a SaaS [API]((https://docs.sypht.com/)) which extracts key fields from documents. For 
-example, you can upload an image or pdf of a bill or invoice and extract the amount due, due date, invoice number 
-and biller information. 
+This project is a fork of sypht-node-client by Sypht Pty Ltd (Apache 2.0 license).
+Modified and maintained by ProcessMaker as a replacement for the discontinued Sypht service.
 
-## Getting started
-To get started you'll need API credentials, i.e. a `client_id` and `client_secret`, which can be obtained by registering
-for an [account](https://www.sypht.com/signup/developer)
-
-## Prerequisites
-* Node.js version 8+.
+## About ProcessMaker SmartExtract
+ProcessMaker SmartExtract is an API that extracts structured data from documents (PDFs, image, etc.)
 
 ## Installation
 
 ```Bash
-npm install sypht-node-client
+npm install pm-smartextract-node-client
 ```
 
 
 ## Usage
-Populate system environment variable with the credentials generated above:
+Populate system environment variable with your API client_id and client_secret credentials:
 
 ```Bash
-SYPHT_API_KEY="$client_id:$client_secret"
-SYPHT_AUTH_ENDPOINT="https://auth.sypht.com/oauth2/token"
-# use https://login.sypht.com/oauth/token for legacy keys
+PMSMARTEXTRACT_API_KEY="$client_id:$client_secret"
+PMSMARTEXTRACT_AUTH_ENDPOINT="https://auth0.ade.processmaker.net/oauth2/token"
 ```
 
 then invoke the client with a file of your choice:
 ```javascript
-var sypht = require('sypht-node-client');
+var client = require('pm-smartextract-node-client');
 
 async function main () {
-    var data = await sypht.fileUpload(['sypht.invoice', 'sypht.document'], './sample_invoice.pdf');
-    data = await sypht.fetchResults(data['fileId']);
+    var data = await client.fileUpload(['sypht.invoice'], './sample_invoice.pdf');
+    data = await client.fetchResults(data['fileId']);
     console.log(JSON.stringify(data, null, 2));
 } 
 
 ```
 
 ## License
-The software in this repository is available as open source under the terms of the [Apache License](https://github.com/sypht-team/sypht-node-client/blob/master/LICENSE).
+The software in this repository is available as open source under the terms of the Apache License.
 
 ## Code of Conduct
-Everyone interacting in the project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/sypht-team/sypht-node-client/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.
